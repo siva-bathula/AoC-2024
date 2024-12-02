@@ -1,14 +1,14 @@
-module.exports.run = async (part) => {
+module.exports.run = async (dayNum, part) => {
     part = +part;
     if (part === 1) {
-        return part1();
+        return part1(dayNum);
     } else {
-        return part2();
+        return part2(dayNum);
     }
 };
 
-async function part1() {
-    const data = await loadInput();
+async function part1(dayNum) {
+    const data = await loadInput(dayNum);
     const lines = data.split('\n');
     var leftArray = [], rightArray = [];
     for (let i=0; i<lines.length; i++) {
@@ -37,8 +37,8 @@ async function part1() {
     return totalDistance;
 }
 
-async function part2() {
-    const data = await loadInput();
+async function part2(dayNum) {
+    const data = await loadInput(dayNum);
     const lines = data.split('\n');
     var leftArray = [], rightArray = [];
     for (let i=0; i<lines.length; i++) {
