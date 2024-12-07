@@ -15,7 +15,7 @@ router.get('/day/:num/:part', async (req, res, next) => {
         }
     } catch (error) {
         console.log(error);
-        res.status(500).send('Error loading module'); 
+        res.status(500).send(`Error in module for day ${dayNum}, part ${part}`);
     }
 });
 
