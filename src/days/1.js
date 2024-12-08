@@ -1,14 +1,9 @@
-module.exports.run = async (dayNum, part) => {
-    part = +part;
-    if (part === 1) {
-        return part1(dayNum);
-    } else {
-        return part2(dayNum);
-    }
-};
+const filereader = require('../utils/fileread.js');
+const run = require('../utils/run.js');
+module.exports.run = run;
 
-async function part1(dayNum) {
-    const data = await loadInput(dayNum);
+module.exports.part1 = async function (dayNum) {
+    const data = await filereader.loadInput(dayNum);
     const lines = data.split('\n');
     var leftArray = [], rightArray = [];
     for (let i=0; i<lines.length; i++) {
@@ -37,8 +32,8 @@ async function part1(dayNum) {
     return totalDistance;
 }
 
-async function part2(dayNum) {
-    const data = await loadInput(dayNum);
+module.exports.part2 = async function (dayNum) {
+    const data = await filereader.loadInput(dayNum);
     const lines = data.split('\n');
     var leftArray = [], rightArray = [];
     for (let i=0; i<lines.length; i++) {
@@ -84,11 +79,4 @@ async function part2(dayNum) {
         }
     }
     return totalSimilarityScore;
-}
-
-const filereader = require('../utils/fileread.js');
-
-async function loadInput() {
-    const text = await filereader.readTextFile(1);
-    return text;
 }
