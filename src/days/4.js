@@ -1,15 +1,9 @@
-module.exports.run = async (dayNum, part) => {
-    part = +part;
-    dayNum = +dayNum;
-    if (part === 1) {
-        return part1(dayNum);
-    } else {
-        return part2(dayNum);
-    }
-};
+const filereader = require('../utils/fileread.js');
+const run = require('../utils/run.js');
+module.exports.run = run;
 
-async function part1(dayNum) {
-    const data = await loadInput(dayNum);
+module.exports.part1 = async function (dayNum) {
+    const data = await filereader.loadInput(dayNum);
     const lines = data.split('\n');
     let xmasCount = 0;
     for(let i=0;i<lines.length; i++) {
@@ -85,8 +79,8 @@ async function part1(dayNum) {
     return xmasCount;
 }
 
-async function part2(dayNum) {
-    const data = await loadInput(dayNum);
+module.exports.part2 = async function (dayNum) {
+    const data = await filereader.loadInput(dayNum);
     const lines = data.split('\n');
     let xmasCount = 0;
     for(let i=0;i<lines.length; i++) {
@@ -151,13 +145,6 @@ S.M
 S.M
 
 */
-
-const filereader = require('../utils/fileread.js');
-
-async function loadInput(dayNum) {
-    const text = await filereader.readTextFile(dayNum);
-    return text;
-}
 
 //part 1
 //+east 206

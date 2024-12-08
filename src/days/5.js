@@ -1,20 +1,15 @@
-module.exports.run = async (dayNum, part) => {
-    part = +part;
-    dayNum = +dayNum;
-    if (part === 1) {
-        return part1(dayNum);
-    } else {
-        return part2(dayNum);
-    }
-};
+const filereader = require('../utils/fileread.js');
+const run = require('../utils/run.js');
+module.exports.run = run;
 
-async function part1(dayNum) {
-    const data = await loadInput(dayNum);
+module.exports.part1 = async function (dayNum) {
+    const data = await filereader.loadInput(dayNum);
     const lines = data.split('\n');
     var rules = [];
     var updates = [];
     for(let i=0;i<lines.length;i++) {
         if (lines[i] && lines[i].indexOf('|') > -1) {
+            lines[i] = lines[i].replace('\r', '');
             var tokens = lines[i].split('|');
             var rule = {
                 left: tokens[0],
@@ -28,6 +23,7 @@ async function part1(dayNum) {
     var middlePageNumberSum = 0;
 
     for(let i=0;i<updates.length;i++) {
+        updates[i] = updates[i].replace('\r', '');
         var pages = updates[i].split(',');
         if (isUpdateValid(pages, rules)) {
             middlePageNumberSum += pages.length % 2 === 0 ? +pages[pages.length/2] : +pages[(pages.length - 1) / 2];
@@ -49,7 +45,7 @@ var isUpdateValid = function(pages, rules) {
                     if (leftPage === rule.right && rightPage === rule.left) {
                         isValidUpdate = false;
                         break;
-                    } 
+                    }
                 }
                 if (!isValidUpdate) {
                     break;
@@ -116,13 +112,14 @@ var rectifyUpdate = function(update, breakingRules) {
     return pages.join(',');
 };
 
-async function part2(dayNum) {
-    const data = await loadInput(dayNum);
+module.exports.part2 = async function (dayNum) {
+    const data = await filereader.loadInput(dayNum);
     const lines = data.split('\n');
     var rules = [];
     var updates = [];
     for(let i=0;i<lines.length;i++) {
         if (lines[i] && lines[i].indexOf('|') > -1) {
+            lines[i] = lines[i].replace('\r', '');
             var tokens = lines[i].split('|');
             var rule = {
                 left: tokens[0],
@@ -137,6 +134,7 @@ async function part2(dayNum) {
 
     var invalidUpdates = [];
     for(let i=0;i<updates.length;i++) {
+        updates[i] = updates[i].replace('\r', '');
         if (!isUpdateValid(updates[i].split(','), rules)) {
             invalidUpdates.push(updates[i]);
         }
@@ -154,11 +152,4 @@ async function part2(dayNum) {
     }
 
     return middlePageNumberSum;
-}
-
-const filereader = require('../utils/fileread.js');
-
-async function loadInput(dayNum) {
-    const text = await filereader.readTextFile(dayNum);
-    return text;
 }

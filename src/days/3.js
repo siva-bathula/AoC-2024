@@ -1,17 +1,11 @@
-module.exports.run = async (dayNum, part) => {
-    part = +part;
-    dayNum = +dayNum;
-    if (part === 1) {
-        return part1(dayNum);
-    } else {
-        return part2(dayNum);
-    }
-};
+const filereader = require('../utils/fileread.js');
+const run = require('../utils/run.js');
+module.exports.run = run;
 
 const regex = /mul\((\d+),(\d+)\)/g
 
-async function part1(dayNum) {
-    const data = await loadInput(dayNum);
+module.exports.part1 = async function (dayNum) {
+    const data = await filereader.loadInput(dayNum);
     var sequences = extractSequences(data, false);
     var sum = 0;
     for(let i=0; i<sequences.length; i++) {
@@ -64,7 +58,7 @@ function isValidSequence(sequence) {
 }
 
 async function part1_(dayNum) {
-    const data = await loadInput(dayNum);
+    const data = await filereader.loadInput(dayNum);
     var sum = 0;
     let matches;
     var count = 0;
@@ -76,8 +70,8 @@ async function part1_(dayNum) {
     return sum;
 }
 
-async function part2(dayNum) {
-    const data = await loadInput(dayNum);
+module.exports.part2 = async function (dayNum) {
+    const data = await filereader.loadInput(dayNum);
     var sequences = extractSequences(data, true);
     var sum = 0;
     var currentlyDoing = true;
@@ -97,11 +91,4 @@ async function part2(dayNum) {
         }
     }
     return sum;
-}
-
-const filereader = require('../utils/fileread.js');
-
-async function loadInput(dayNum) {
-    const text = await filereader.readTextFile(dayNum);
-    return text;
 }

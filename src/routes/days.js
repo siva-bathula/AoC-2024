@@ -8,9 +8,9 @@ router.get('/day/:num/:part', async (req, res, next) => {
         const modulePath = `../days/${dayNum}.js`; 
         const module = require(modulePath); 
         if (module && typeof module.run === 'function') { 
-            const result = await module.run(dayNum, part);
+            const result = await module.run(dayNum, part, module);
             res.send(`${result}`); 
-        } else { 
+        } else {
             res.status(500).send('Invalid module or function'); 
         }
     } catch (error) {
